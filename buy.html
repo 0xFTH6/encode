@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Encode: Payment｜Encrypted & Secure</title>
+  <link rel="icon" type="image/png" href="logo1.png">
+  <script src="https://www.paypal.com/sdk/js?client-id=AY4ZLT0TmQE2LPOF31B8Ng50Igz8ZPH_j0-9F6koNJ1TEiL-Y6KIh60YOzEshAZvZIm0PQZlOOoqKXG7&amp;currency=EUR"></script>
+  <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .paypal.buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+  </style>
+</head>
+<body>
+  <div id="paypal-button-container" class="paypal-button"></div>
+  <script>
+            paypal.Buttons({
+            style: {
+                layout: 'vertical',  
+                color:  'blue',      
+                shape:  'rect',      
+                label:  'paypal'     
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '9.99' 
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    
+                });
+            }
+        }).render('#paypal-button-container'); 
+  </script>
+</body>
+</html>
